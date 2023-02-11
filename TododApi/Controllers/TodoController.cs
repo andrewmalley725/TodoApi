@@ -24,22 +24,15 @@ namespace TododApi.Controllers
 
         private static List<Dictionary<string, object>> FormatData(IEnumerable<Todo> data)
         {
-            List<Dictionary<string, object>> items = new List<Dictionary<string, object>>();
-
-            foreach (Todo item in data)
+            return data.Select(item => new Dictionary<string, object>
             {
-                Dictionary<string, object> entry = new Dictionary<string, object>();
-
-                entry.Add("ID", (int)item.todoId);
-                entry.Add("Description", (string)item.description);
-                entry.Add("Done", (bool)item.done);
-
-                items.Add(entry);
-            }
-
-            return items;
+                { "ID", item.todoId },
+                { "Description", item.description },
+                { "Username", item.User.username },
+                { "Done", item.done }
+            }).ToList();
         }
-        
+
         // GET: api/values
         [HttpGet]
         public async Task<List<Dictionary<string, object>>> GetTodo()
