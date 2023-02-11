@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1704.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TododApi", "TododApi\TododApi.csproj", "{D487DB5A-0F57-410A-B108-05DCE80B3086}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApi", "TododApi\TodoApi.csproj", "{D487DB5A-0F57-410A-B108-05DCE80B3086}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
