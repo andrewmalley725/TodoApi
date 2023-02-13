@@ -53,7 +53,7 @@ namespace TododApi.Controllers
         {
             List<Todo> dbItems = await _db.TodoList
                                        .Include(x => x.User)
-                                       .Where(x => x.userId == id)
+                                       .Where(x => x.todoId == id && x.done == false)
                                        .ToListAsync();
 
             List<Dictionary<string, object>> data = FormatData(dbItems);
@@ -80,14 +80,29 @@ namespace TododApi.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public async Task<ActionResult<string>> Put(int id, [FromBody]Todo value)
         {
+            var todoItem = await _db.TodoList.FirstOrDefaultAsync(x => x.todoId == id);
+
+
+            todoItem.User = await _db.User.FirstOrDefaultAsync(x => x.userId == value.userId);
+            todoItem.userId = value.userId;
+            todoItem.description = value.description;
+            todoItem.done = value.done;
+
+            _db.SaveChanges();
+
+            return Ok("Updated!");
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult<string>> Delete(int id)
         {
+            var todoItem = await _db.TodoList.FirstOrDefaultAsync(x => x.todoId == id);
+            _db.TodoList.Remove(todoItem);
+            _db.SaveChanges();
+            return Ok("Deleted!");
         }
     }
 }
